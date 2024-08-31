@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us via WhatsApp</title>
+    <style>
+        /* CSS Styling for the Form and Page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #1FA2FF, #12D8FA, #A6FFCB);
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .form-container input:focus,
+        .form-container textarea:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #25D366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+        }
+
+        .message-sent {
+            text-align: center;
+            margin-top: 20px;
+            color: green;
+            font-size: 16px;
+            display: none; /* Initially hidden */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML Form Structure -->
+    <div class="form-container">
+        <h2>Contact Us</h2>
+        <form onsubmit="sendToWhatsApp(); return false;">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+            <input type="text" id="number1" placeholder="Enter your number starting with 91" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="message-sent" id="messageSent">
+            Message Sent Successfully! We will get back to you soon.
+        </div>
+    </div>
+
+    <!-- JavaScript Functionality -->
+    <script>
+        function sendToWhatsApp() {
+            // Get the WhatsApp number and other form inputs
+            let number1 = document.getElementById('number1').value;
+            let number = number1; // The number entered by the user
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let message = document.getElementById('message').value;
+
+            // Construct the WhatsApp URL with encoded text
+            let url = "https://wa.me/" + number + "?text=" +
+                "Name: " + encodeURIComponent(name) + "%0a" +
+                "Email: " + encodeURIComponent(email) + "%0a" +
+                "Phone: " + encodeURIComponent(phone) + "%0a" +
+                "Message: " + encodeURIComponent(message);
+
+            // Open WhatsApp in a new tab with the pre-filled message
+            window.open(url, '_blank').focus();
+
+            // Display confirmation message
+            document.getElementById('messageSent').style.display = 'block';
+
+            // Reset the form fields
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('message').value = '';
+            document.getElementById('number1').value = '';
+        }
+    </script>
+</body>
+</html>
